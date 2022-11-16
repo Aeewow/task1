@@ -1,0 +1,297 @@
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1666203241571)
++++ b/.idea/vcs.xml	(date 1666203241571)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: src/Array.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Array.java b/src/Array.java
+new file mode 100644
+--- /dev/null	(date 1666849397325)
++++ b/src/Array.java	(date 1666849397325)
+@@ -0,0 +1,59 @@
++import java.util.Scanner;
++
++public class Array {
++    private int [][] matrix;
++    private int line;
++    private  int post;
++    public Array(int row, int collumn){
++        this.line = row;
++        this.post = collumn;
++        this.matrix = new int[row][collumn];
++    }
++    public void fill()
++    {
++        Scanner in = new Scanner(System.in);
++        for(int i=0;i<this.line;i++)
++        {
++            for (int j = 0; j <this.post; j++)
++            {
++                int t = in.nextInt();
++                this.matrix[i][j] = t;
++            }
++        }
++    }
++    public void printMatrix()
++    {
++        System.out.println("Ваш массив: ");
++        for (int i=0;i<this.line;i++)
++        {
++            for (int j=0; j < this.post;j++)
++            {
++                System.out.print(this.matrix[i][j]);
++            }
++            System.out.println();
++        }
++    }
++    public int doTask()
++    {
++        int count = 0;
++        int maximum = 0;
++        for(int i=0; i<this.line; i++)
++        {
++            for (int j= 0; j< this.post; j++) {
++                for (int z = 0; z < this.line; z++) {
++                    for (int k = 0; k < this.post; k++) {
++                        if (matrix[i][j] == matrix[z][k]) {
++                            count++;
++                        }
++                    }
++                }
++                if (maximum < count)
++                {
++                    maximum = count;
++                }
++                count = 0;
++            }
++        }
++        return maximum;
++    }
++}
+Index: src/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Main.java b/src/Main.java
+new file mode 100644
+--- /dev/null	(date 1668621860468)
++++ b/src/Main.java	(date 1668621860468)
+@@ -0,0 +1,65 @@
++import java.util.Scanner;
++
++public class Main {
++    public static void main(String[] args)
++    {
++        Scanner in = new Scanner(System.in);
++        while (true)
++        {
++            System.out.println("1 - Задача первая \n 2 - Задача вторая \n 3- Задача третья \n 4 - Задача четвёртая \n 5 - Выход из программы");
++            int choice = in.nextInt();
++            if (choice == 1)
++            {
++                Scanner input = new Scanner(System.in);
++                System.out.print("Введите количество строк в массиве: \n");
++                int line = input.nextInt();
++                System.out.print("Введите количество столбцов в массиве: \n");
++                int post = input.nextInt();
++                Array matrix = new Array(line, post);
++                matrix.fill();
++                matrix.printMatrix();
++                int Answer = matrix.doTask();
++                System.out.println(Answer);
++            }
++            if (choice == 2)
++            {
++                Scanner input = new Scanner(System.in);
++                System.out.print("Введите вашу строку \n");
++                String forPivot = input.nextLine();
++                Strings pivot = new Strings(forPivot);
++                String TwoPiwot = pivot.doSecondTask(pivot);
++                System.out.println(TwoPiwot);
++            }
++            if (choice == 3)
++            {
++                Scanner input = new Scanner(System.in);
++                System.out.print("Введите вашу строку \n");
++                String forObject = input.nextLine();
++                Strings object = new Strings(forObject);
++                Strings cloneString = new Strings(object);
++                String str = cloneString.doThirdTask(cloneString);
++                System.out.println(str);
++            }
++            if (choice == 4)
++            {
++                Scanner input = new Scanner(System.in);
++                System.out.print("Введите вашу строку \n");
++                String array = input.nextLine();
++                System.out.print("\n Введите необходимое количество символов в слове \n");
++                int minLenght = input.nextInt();
++                Strings object = new Strings();
++                object.setSentence(array);
++                int count = object.doFourthTask(object, minLenght);
++                System.out.println(count);
++            }
++            if (choice == 5)
++            {
++                System.exit(0);
++            }
++        }
++    }
++}
++
++
++
++
+Index: src/Strings.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Strings.java b/src/Strings.java
+new file mode 100644
+--- /dev/null	(date 1666884676411)
++++ b/src/Strings.java	(date 1666884676411)
+@@ -0,0 +1,54 @@
++import java.util.Scanner;
++
++public class Strings {
++    private String sentence;
++    public Strings(){
++        this.sentence = "";
++    }
++    public Strings(String sentence){
++        this.sentence = sentence;
++    }
++    public Strings(Strings example){
++        this.sentence = example.sentence;
++    }
++    public void setSentence(String sentence) {
++        this.sentence = sentence;
++    }
++
++    public String doSecondTask(Strings inStr)
++    {
++        String[] split = inStr.sentence.split(" ");
++        String trimedRes;
++        String result = "";
++        for (int i = split.length - 1; i >= 0; i--)
++        {
++            result += (split[i] + " ");
++        }
++        trimedRes = result.trim();
++        return trimedRes;
++    }
++
++    public String doThirdTask(Strings inStr)
++    {
++        String replaceString = inStr.sentence.replaceAll("[бвгджзйклмнпрстфхцщшъБВГДЖЗЙКЛМНПРСТФХЦШЩЪ]","-");
++        return replaceString;
++    }
++
++    public  int doFourthTask(Strings inStr, int minLenght)
++    {
++        String[] words = inStr.sentence.split(" ");
++        int count = 0;
++        for (int i = 0; i < words.length; i++)
++        {
++            if (words[i].length() == minLenght)
++            {
++                count++;
++            }
++        }
++        return count;
++    }
++    public String getter()
++    {
++        return this.sentence;
++    }
++}
+\ No newline at end of file
+Index: task1.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/task1.iml b/task1.iml
+new file mode 100644
+--- /dev/null	(date 1662747260450)
++++ b/task1.iml	(date 1662747260450)
+@@ -0,0 +1,11 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="JAVA_MODULE" version="4">
++  <component name="NewModuleRootManager" inherit-compiler-output="true">
++    <exclude-output />
++    <content url="file://$MODULE_DIR$">
++      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
++    </content>
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++</module>
+\ No newline at end of file
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+new file mode 100644
+--- /dev/null	(date 1662747260514)
++++ b/.idea/modules.xml	(date 1662747260514)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/task1.iml" filepath="$PROJECT_DIR$/task1.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+new file mode 100644
+--- /dev/null	(date 1662747273420)
++++ b/.idea/.gitignore	(date 1662747273420)
+@@ -0,0 +1,3 @@
++# Default ignored files
++/shelf/
++/workspace.xml
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+new file mode 100644
+--- /dev/null	(date 1662747260554)
++++ b/.idea/misc.xml	(date 1662747260554)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_18" default="true" project-jdk-name="openjdk-18" project-jdk-type="JavaSDK">
++    <output url="file://$PROJECT_DIR$/out" />
++  </component>
++</project>
+\ No newline at end of file
